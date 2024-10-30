@@ -37,7 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <tr>
             <th>Developer</th>
             <?php foreach ($projects as $project): ?>
-                <th><?php echo htmlspecialchars($project['name']); ?><br>(Demand: <?php echo $project['demand_percentage']; ?>%)</th>
+                <th>
+                    <?php echo htmlspecialchars($project['customer']); ?><br>
+                    <label>Demand:</label>
+                    <input type="number" name="demand_percentage[<?php echo $project['project_id']; ?>]" min="0" max="300" step="5" required>
+                </th>
             <?php endforeach; ?>
         </tr>
         

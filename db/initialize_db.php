@@ -11,7 +11,6 @@ $db->exec("CREATE TABLE IF NOT EXISTS Projects (
     project_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     customer TEXT NOT NULL,
-    demand_percentage INTEGER NOT NULL CHECK(demand_percentage >= 0 AND demand_percentage <= 300)
 )");
 
 $db->exec("CREATE TABLE IF NOT EXISTS WeeklyAllocations (

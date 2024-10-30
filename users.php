@@ -18,8 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="text" id="name" name="name" required>
     <label for="role">Role:</label>
     <select id="role" name="role" required>
-        <option value="Developer">Developer</option>
-        <option value="Team Lead">Team Lead</option>
+        <option value="teamlead">Teamlead</option>
+        <option value="devs">Devs</option>
+        <option value="leveranseansvarlig">Leveranseansvarlig</option>
+        <option value="eksterne">Eksterne</option>
     </select>
     <button type="submit">Add User</button>
 </form>
