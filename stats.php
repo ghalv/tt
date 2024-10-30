@@ -3,7 +3,7 @@ include 'includes/db_connect.php';
 include 'includes/header.php';
 
 // Fetch project demands and total allocations per project for the current week
-$current_week = $_GET['week'] ?? 1;
+$current_week = isset($_GET['week']) ? (int)$_GET['week'] : date('W');
 $projects = $db->query("SELECT * FROM Projects")->fetchAll(PDO::FETCH_ASSOC);
 $chart_data = [];
 

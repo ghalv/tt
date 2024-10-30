@@ -24,4 +24,12 @@ $db->exec("CREATE TABLE IF NOT EXISTS WeeklyAllocations (
     FOREIGN KEY (project_id) REFERENCES Projects(project_id)
 )");
 
+$db->exec("CREATE TABLE IF NOT EXISTS WeeklyDemand (
+    week_number INTEGER NOT NULL,
+    project_id INTEGER NOT NULL,
+    demand_percentage INTEGER CHECK(demand_percentage >= 0 AND demand_percentage <= 300),
+    FOREIGN KEY (project_id) REFERENCES Projects(project_id),
+    UNIQUE(week_number, project_id)
+)");
+
 echo "Tables created successfully!";

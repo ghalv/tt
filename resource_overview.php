@@ -2,7 +2,7 @@
 include 'includes/db_connect.php';
 include 'includes/header.php';
 
-$current_week = $_GET['week'] ?? 1;
+$current_week = isset($_GET['week']) ? (int)$_GET['week'] : date('W');
 
 // Fetch users and their allocated percentages
 $users = $db->query("SELECT * FROM Users")->fetchAll(PDO::FETCH_ASSOC);
