@@ -78,6 +78,13 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     <script src="assets/scripts.js"></script>
 </head>
 <body>
+
+    <p>
+        <a href="?week=<?php echo $current_week - 1; ?>">prev</a> |
+        <a href="?week=<?php echo date('W'); ?>">current</a> |
+        <a href="?week=<?php echo $current_week + 1; ?>">next</a>
+    </p>
+
     <h2>Weekly Allocation View - Week <?php echo $current_week; ?></h2>
 
     <?php if ($error_message): ?>
@@ -152,12 +159,6 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
         <button type="submit">Save Allocations and Demands</button>
     </form>
-
-    <p>
-        <a href="?week=<?php echo $current_week - 1; ?>">Previous Week</a> |
-        <a href="?week=<?php echo date('W'); ?>">Current Week</a> |
-        <a href="?week=<?php echo $current_week + 1; ?>">Next Week</a>
-    </p>
 
 <?php include 'includes/footer.php'; ?>
 

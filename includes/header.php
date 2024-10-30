@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>Project Allocation System</h1>
+        <h1>Tjenesteteam</h1>
         <nav>
             <ul>
                 <li><a href="index.php">Week View</a></li>
