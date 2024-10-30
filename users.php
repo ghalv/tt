@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <label for="role">Role:</label>
     <select id="role" name="role" required>
         <option value="teamlead">Teamlead</option>
-        <option value="devs">Devs</option>
+        <option value="dev">Dev</option>
         <option value="leveranseansvarlig">Leveranseansvarlig</option>
         <option value="eksterne">Eksterne</option>
     </select>
