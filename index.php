@@ -9,21 +9,45 @@ $users = $db->query("SELECT * FROM Users")->fetchAll(PDO::FETCH_ASSOC);
 $projects = $db->query("SELECT * FROM Projects")->fetchAll(PDO::FETCH_ASSOC);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user_id = $_POST['user_id'];
-    $project_id = $_POST['project_id'];
-    $allocated_percentage = $_POST['allocated_percentage'];
-    
-    // Insert or update allocation
-    $stmt = $db->prepare("INSERT INTO WeeklyAllocations (week_number, user_id, project_id, allocated_percentage) 
-                          VALUES (:week, :user_id, :project_id, :allocated_percentage)
-                          ON CONFLICT(week_number, user_id, project_id) 
-                          DO UPDATE SET allocated_percentage = :allocated_percentage");
-    $stmt->execute([
-        ':week' => $current_week,
-        ':user_id' => $user_id,
-        ':project_id' => $project_id,
-        ':allocated_percentage' => $allocated_percentage
-    ]);
+    $current_week = $_POST['week_number'];
+
+    // Array to collect over-allocated users
+    $overAllocatedUsers = [];
+
+    // Check each user's allocation to ensure it doesn’t exceed 100%
+    foreach ($_POST['allocated_percentage'] as $user_id => $allocations) {
+        $totalAllocation = array_sum($allocations);  // Sum all allocations for this user
+
+        if ($totalAllocation > 100) {
+            $overAllocatedUsers[] = $user_id;  // Add to over-allocated users list
+        }
+    }
+
+    // If any user is over-allocated, show an error and exit before saving
+    if (!empty($overAllocatedUsers)) {
+        echo "Error: One or more users are over-allocated (>100%). Please adjust allocations.";
+        exit();
+    }
+
+    // Proceed to save allocations if no over-allocation
+    foreach ($_POST['allocated_percentage'] as $user_id => $allocations) {
+        foreach ($allocations as $project_id => $allocated_percentage) {
+            $allocated_percentage = (int) $allocated_percentage;
+
+            // Insert or update allocation in the database
+            $stmt = $db->prepare("INSERT INTO WeeklyAllocations (week_number, user_id, project_id, allocated_percentage)
+                                  VALUES (:week, :user_id, :project_id, :allocated_percentage)
+                                  ON CONFLICT(week_number, user_id, project_id)
+                                  DO UPDATE SET allocated_percentage = :allocated_percentage");
+            $stmt->execute([
+                ':week' => $current_week,
+                ':user_id' => $user_id,
+                ':project_id' => $project_id,
+                ':allocated_percentage' => $allocated_percentage
+            ]);
+        }
+    }
+    echo "Allocations saved successfully!";
 }
 
 ?>
