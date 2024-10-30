@@ -5,9 +5,8 @@ include 'includes/header.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $customer = $_POST['customer'];
-    $demand_percentage = $_POST['demand_percentage'];
-    $stmt = $db->prepare("INSERT INTO Projects (name, customer, demand_percentage) VALUES (:name, :customer, :demand_percentage)");
-    $stmt->execute([':name' => $name, ':customer' => $customer, ':demand_percentage' => $demand_percentage]);
+    $stmt = $db->prepare("INSERT INTO Projects (name, customer) VALUES (:name, :customer)");
+    $stmt->execute([':name' => $name, ':customer' => $customer]);
     echo "<p>Project added successfully!</p>";
 }
 ?>
@@ -19,8 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="text" id="name" name="name" required>
     <label for="customer">Customer:</label>
     <input type="text" id="customer" name="customer" required>
-    <label for="demand_percentage">Demand (%):</label>
-    <input type="number" id="demand_percentage" name="demand_percentage" min="0" max="300" step="5" required>
     <button type="submit">Add Project</button>
 </form>
 
@@ -29,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <tr>
         <th>Project Name</th>
         <th>Customer</th>
-        <th>Demand (%)</th>
         <th>Actions</th>
     </tr>
     <?php
@@ -38,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<tr>
                 <td>{$project['name']}</td>
                 <td>{$project['customer']}</td>
-                <td>{$project['demand_percentage']}</td>
                 <td>
                     <a href='edit_project.php?id={$project['project_id']}'>Edit</a> |
                     <a href='delete_project.php?id={$project['project_id']}'>Delete</a>
