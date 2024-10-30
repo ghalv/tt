@@ -125,11 +125,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit">Save Allocations</button>
     </form>
 
-<?php include 'includes/footer.php'; ?>
-
     <p>
         <a href="?week=<?php echo $current_week - 1; ?>">Previous Week</a> |
         <a href="?week=<?php echo $current_week + 1; ?>">Next Week</a>
     </p>
+<?php include 'includes/footer.php'; ?>
 </body>
 </html>
