@@ -140,12 +140,14 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     ?>
                     <td>
                         <?php echo $total_allocation; ?>%
-                        <span class="difference <?php echo $difference < 0 ? 'under' : 'over'; ?>">
-                            (<?php echo $difference < 0 ? 'Under' : 'Over'; ?>: <?php echo abs($difference); ?>%)
-                        </span>
+                        <?php if ($difference !== 0): ?>
+                            <span class="difference <?php echo $difference < 0 ? 'under' : 'over'; ?>">
+                                (<?php echo $difference < 0 ? 'Under' : 'Over'; ?>: <?php echo abs($difference); ?>%)
+                            </span>
+                        <?php endif; ?>
                     </td>
-                <?php endforeach; ?>
-            </tr>
+    <?php endforeach; ?>
+</tr>
         </table>
 
         <button type="submit">Save Allocations and Demands</button>
@@ -153,8 +155,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
     <p>
         <a href="?week=<?php echo $current_week - 1; ?>">Previous Week</a> |
-        <a href="?week=<?php echo $current_week + 1; ?>">Next Week</a> |
         <a href="?week=<?php echo date('W'); ?>">Current Week</a>
+        <a href="?week=<?php echo $current_week + 1; ?>">Next Week</a> |
     </p>
 
 <?php include 'includes/footer.php'; ?>
