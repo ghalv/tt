@@ -155,8 +155,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
     <p>
         <a href="?week=<?php echo $current_week - 1; ?>">Previous Week</a> |
-        <a href="?week=<?php echo date('W'); ?>">Current Week</a>
-        <a href="?week=<?php echo $current_week + 1; ?>">Next Week</a> |
+        <a href="?week=<?php echo date('W'); ?>">Current Week</a> |
+        <a href="?week=<?php echo $current_week + 1; ?>">Next Week</a>
     </p>
 
 <?php include 'includes/footer.php'; ?>
