@@ -10,7 +10,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS Users (
 $db->exec("CREATE TABLE IF NOT EXISTS Projects (
     project_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    customer TEXT NOT NULL,
+    customer TEXT NOT NULL
 )");
 
 $db->exec("CREATE TABLE IF NOT EXISTS WeeklyAllocations (
@@ -25,4 +25,3 @@ $db->exec("CREATE TABLE IF NOT EXISTS WeeklyAllocations (
 )");
 
 echo "Tables created successfully!";
-
