@@ -1,5 +1,6 @@
 <?php
 include 'includes/db_connect.php';
+include 'includes/header.php';
 
 // Set current week as the default if no week is specified in the URL
 $current_week = isset($_GET['week']) ? (int)$_GET['week'] : date('W');
@@ -123,6 +124,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <button type="submit">Save Allocations</button>
     </form>
+
+<?php include 'includes/footer.php'; ?>
 
     <p>
         <a href="?week=<?php echo $current_week - 1; ?>">Previous Week</a> |
