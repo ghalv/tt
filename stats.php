@@ -8,6 +8,11 @@ $projects = $db->query("SELECT * FROM Projects")->fetchAll(PDO::FETCH_ASSOC);
 $chart_data = [];
 
 foreach ($projects as $project) {
+    // Get demand for the current week from WeeklyDemand table
+    $stmt = $db->prepare("SELECT demand_percentage FROM WeeklyDemand WHERE week_number = :week AND project_id = :project_id");
+    $stmt->execute([':week' => $current_week, ':project_id' => $project['project_id']]);
+    $weekly_demand = $stmt->fetchColumn() ?: 0;
+
     // Calculate total allocation for this project
     $stmt = $db->prepare("SELECT SUM(allocated_percentage) FROM WeeklyAllocations WHERE week_number = :week AND project_id = :project_id");
     $stmt->execute([':week' => $current_week, ':project_id' => $project['project_id']]);
@@ -16,7 +21,7 @@ foreach ($projects as $project) {
     // Append to data for Chart.js
     $chart_data[] = [
         'project' => $project['name'],
-        'demand' => $project['demand_percentage'],
+        'demand' => $weekly_demand,
         'allocation' => $total_allocation
     ];
 }
@@ -61,4 +66,3 @@ new Chart(ctx, {
 </p>
 
 <?php include 'includes/footer.php'; ?>
-
