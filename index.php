@@ -157,7 +157,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 </tr>
         </table>
 
-        <button type="submit">Save Allocations and Demands</button>
+        <button type="submit">Save</button>
     </form>
 
 <?php include 'includes/footer.php'; ?>
