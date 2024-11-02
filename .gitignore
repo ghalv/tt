@@ -1,0 +1,33 @@
+# Sensitive environment/config files
+.env
+config.php
+includes/db_connect.php
+
+# System files
+.DS_Store
+Thumbs.db
+*.swp
+
+# Editor settings
+.vscode/
+.idea/
+
+# Logs
+logs/
+*.log
+
+# Cache and temporary files
+cache/
+tmp/
+*.tmp
+*.cache
+
+# Vendor/dependency directories
+vendor/
+node_modules/
+
+# Database files
+db/*.sqlite
+
+# Deployment scripts
+deploy.sh
